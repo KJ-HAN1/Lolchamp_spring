@@ -14,6 +14,7 @@ import java.util.List;
 public class ApiController {
 
     private static List<LolChampDTO> totalList = new ArrayList<>();
+    private static List<Skills> skillsList = new ArrayList<>();
 
     @GetMapping("")
     public List<LolChampDTO> index() {
@@ -23,7 +24,6 @@ public class ApiController {
     //화면에서 넘겨준 값으로 lolchampdto생성
     @PostMapping("")
     public LolChampDTO addCharacter(@RequestBody AddCharacterRequest request) {
-
 
         System.out.println(request.toString());
         LolChampDTO lolChampDTO = new LolChampDTO();
@@ -39,6 +39,16 @@ public class ApiController {
     //id값을 통해 skills input
     @PutMapping("/detail/{id}")
     public void addSkillSet (@PathVariable int id, @RequestBody Skills skills) {
+        for (int i = 0; i < totalList.size(); i++) {
+            if(totalList.get(i).getId() == id){
+                System.out.println("id = " + id +"->"+ skills.toString());
+                skills.setName(skills.getName());
+                skills.setUseMana(skills.getUseMana());
+                skills.setAttackPoint(skills.getAttackPoint());
+                skillsList.add(skills);
+                totalList.get(i).setSkillset(skillsList);
+            }
+        }
 
     }
 

@@ -3,24 +3,27 @@ package com.study.lol.dto;
 import java.util.List;
 
 public class AddCharacterRequest {
-    int id=0;
+    static int idCounter;
+    int id;
     String name;
     double health;
     double attack;
     double mana;
     List<Skills> skiilSetList;
 
-
-    //new addcharacter id num++
-    {
-        ++id;
+    // id++
+    public AddCharacterRequest(String name, double health, double attack, double mana, List<Skills> skiilSetList) {
+        this.id = ++idCounter;  // id 증가
+        this.name = name;
+        this.health = health;
+        this.attack = attack;
+        this.mana = mana;
+        this.skiilSetList = skiilSetList;
     }
 
     public int getId() {
         return id;
     }
-
-
     public String getName() {
         return name;
     }
@@ -40,10 +43,12 @@ public class AddCharacterRequest {
     @Override
     public String toString() {
         return "AddCharacterRequest{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", health=" + health +
                 ", attack=" + attack +
                 ", mana=" + mana +
+                ", skiilSetList=" + skiilSetList +
                 '}';
     }
 }

@@ -30,4 +30,12 @@ public class Skills {
         this.attackPoint = attackPoint;
     }
 
+    @Override
+    public String toString() {
+        return "Skills{" +
+                "name='" + name + '\'' +
+                ", useMana=" + useMana +
+                ", attackPoint=" + attackPoint +
+                '}';
+    }
 }
