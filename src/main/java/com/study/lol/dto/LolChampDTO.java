@@ -8,7 +8,7 @@ public class LolChampDTO {
     double health;
     double attack;
     double mana;
-    List<Skills> skillset;
+    List<SkillsDTO> skillset;
 
     public int getId() {
         return id;
@@ -50,11 +50,11 @@ public class LolChampDTO {
         this.mana = mana;
     }
 
-    public List<Skills> getSkillset() {
+    public List<SkillsDTO> getSkillset() {
         return skillset;
     }
 
-    public void setSkillset(List<Skills> skillset) {
+    public void setSkillset(List<SkillsDTO> skillset) {
         this.skillset = skillset;
     }
 }

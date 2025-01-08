@@ -9,10 +9,10 @@ public class AddCharacterRequest {
     double health;
     double attack;
     double mana;
-    List<Skills> skiilSetList;
+    List<SkillsDTO> skiilSetList;
 
     // id++
-    public AddCharacterRequest(String name, double health, double attack, double mana, List<Skills> skiilSetList) {
+    public AddCharacterRequest(String name, double health, double attack, double mana, List<SkillsDTO> skiilSetList) {
         this.id = ++idCounter;  // id 증가
         this.name = name;
         this.health = health;

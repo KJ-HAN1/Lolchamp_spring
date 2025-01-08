@@ -1,8 +1,11 @@
 package com.study.lol.controller;
 
+import com.study.lol.Service.AddCharacterService;
+import com.study.lol.Service.AddSkillSetService;
 import com.study.lol.dto.AddCharacterRequest;
+import com.study.lol.dto.AddSkillsRequest;
 import com.study.lol.dto.LolChampDTO;
-import com.study.lol.dto.Skills;
+import com.study.lol.dto.SkillsDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,48 +16,37 @@ import java.util.List;
 @RestController
 public class ApiController {
 
-    private static List<LolChampDTO> totalList = new ArrayList<>();
-    private static List<Skills> skillsList = new ArrayList<>();
-
+    private final static List<LolChampDTO> totalList = new ArrayList<>();
+    private final static List<SkillsDTO> skillsList = new ArrayList<>();
+    //전체 List 조회
     @GetMapping("")
-    public List<LolChampDTO> index() {
-        return totalList;
-    }
+    public List<LolChampDTO> getAllInfo() {return totalList;}
 
     //화면에서 넘겨준 값으로 lolchampdto생성
     @PostMapping("")
-    public LolChampDTO addCharacter(@RequestBody AddCharacterRequest request) {
-
-        System.out.println(request.toString());
-        LolChampDTO lolChampDTO = new LolChampDTO();
-        lolChampDTO.setId(request.getId());
-        lolChampDTO.setName(request.getName());
-        lolChampDTO.setAttack(request.getAttack());
-        lolChampDTO.setMana(request.getMana());
-        lolChampDTO.setHealth(request.getHealth());
-        totalList.add(lolChampDTO);
-        return lolChampDTO;
+    public LolChampDTO addCharacter(@RequestBody AddCharacterRequest characterRequest) {
+        System.out.println(characterRequest.toString());
+        AddCharacterService addCharacterService = new AddCharacterService();
+        totalList.add(addCharacterService.addCharacter(characterRequest));
+        return addCharacterService.addCharacter(characterRequest);
     }
 
-    //id값을 통해 skills input
+    //id값을 통해 skills update
     @PutMapping("/detail/{id}")
-    public void addSkillSet (@PathVariable int id, @RequestBody Skills skills) {
+    public void addSkillSet (@PathVariable int id, @RequestBody AddSkillsRequest skillsRequest) {
         for (int i = 0; i < totalList.size(); i++) {
             if(totalList.get(i).getId() == id){
-                System.out.println("id = " + id +"->"+ skills.toString());
-                skills.setName(skills.getName());
-                skills.setUseMana(skills.getUseMana());
-                skills.setAttackPoint(skills.getAttackPoint());
-                skillsList.add(skills);
+                System.out.println("id = " + id +"->"+ skillsRequest.toString());
+                AddSkillSetService addSkillSetService = new AddSkillSetService();
+                skillsList.add(addSkillSetService.AddSkills(skillsRequest));
                 totalList.get(i).setSkillset(skillsList);
             }
         }
-
     }
 
     // 상세 정보 조회 (단건 조회)
     @GetMapping("/fetch/{id}")
-    public LolChampDTO getInfo(@PathVariable int id) {
+    public LolChampDTO getOneInfo(@PathVariable int id) {
         System.out.println("id : "+id);
         LolChampDTO dto = new LolChampDTO();
         for(int i  = 0; i < totalList.size(); i++){
@@ -66,5 +58,18 @@ public class ApiController {
         return dto;
     }
 
-
+    // delete Character
+    @DeleteMapping("/delete/{id}")
+    public void deleteCharacter(@PathVariable int id){
+        boolean checkId = false;
+        for (int i = 0; i <totalList.size() ; i++) {
+            if(totalList.get(i).getId() == id){
+                System.out.println(totalList.get(i).getName()+" 삭제!");
+                totalList.remove(i);
+                checkId = true;
+                break;
+            }
+        }
+        if(!checkId) System.out.println("존재하지 않는 id");
+    }
 }
