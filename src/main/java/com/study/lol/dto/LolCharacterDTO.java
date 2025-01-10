@@ -2,13 +2,14 @@ package com.study.lol.dto;
 
 import java.util.List;
 
-public class LolChampDTO {
-    int id;
-    String name;
-    double health;
-    double attack;
-    double mana;
-    List<SkillsDTO> skillset;
+public class LolCharacterDTO {
+    private int id;
+    private String name;
+    private double health;
+    private double attack;
+    private double mana;
+    private List<SkillsDTO> skillSet;
+    private static List<ItemDTO> itemSet;
 
     public int getId() {
         return id;
@@ -50,11 +51,16 @@ public class LolChampDTO {
         this.mana = mana;
     }
 
-    public List<SkillsDTO> getSkillset() {
-        return skillset;
+    public List<SkillsDTO> getSkillSet() {
+        return skillSet;
     }
 
-    public void setSkillset(List<SkillsDTO> skillset) {
-        this.skillset = skillset;
+    public void setSkillSet(List<SkillsDTO> skillSet) {
+        this.skillSet = skillSet;
     }
+
+    public static void setItemSet(List<ItemDTO> itemSet) {
+        LolCharacterDTO.itemSet = itemSet;
+    }
+
 }

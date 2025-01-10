@@ -1,24 +1,27 @@
 package com.study.lol.dto;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AddCharacterRequest {
-    static int idCounter;
-    int id;
-    String name;
-    double health;
-    double attack;
-    double mana;
-    List<SkillsDTO> skiilSetList;
+    private static int idCounter;
+    private int id;
+    private String name;
+    private double health;
+    private double attack;
+    private double mana;
+    private List<SkillsDTO> skillSetList;
+    private List<ItemDTO> itemSet;
 
     // id++
-    public AddCharacterRequest(String name, double health, double attack, double mana, List<SkillsDTO> skiilSetList) {
+    public AddCharacterRequest(String name, double health, double attack, double mana, List<SkillsDTO> skillSetList, List<ItemDTO> itemSet) {
         this.id = ++idCounter;  // id 증가
         this.name = name;
         this.health = health;
         this.attack = attack;
         this.mana = mana;
-        this.skiilSetList = skiilSetList;
+        this.skillSetList = skillSetList;
+        this.itemSet = itemSet;
     }
 
     public int getId() {
@@ -40,6 +43,14 @@ public class AddCharacterRequest {
         return mana;
     }
 
+    public List<SkillsDTO> getSkillSetList() {
+        return skillSetList;
+    }
+
+    public List<ItemDTO> getItemSet() {
+        return itemSet;
+    }
+
     @Override
     public String toString() {
         return "AddCharacterRequest{" +
@@ -48,7 +59,8 @@ public class AddCharacterRequest {
                 ", health=" + health +
                 ", attack=" + attack +
                 ", mana=" + mana +
-                ", skiilSetList=" + skiilSetList +
+                ", skillSetList=" + skillSetList +
+                ", itemSet=" + itemSet +
                 '}';
     }
 }

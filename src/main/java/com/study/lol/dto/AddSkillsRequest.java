@@ -1,9 +1,9 @@
 package com.study.lol.dto;
 
 public class AddSkillsRequest {
-    String name;
-    double useMana;
-    double attackPoint;
+    private String name;
+    private double useMana;
+    private double attackPoint;
 
     public String getName() {
         return name;
