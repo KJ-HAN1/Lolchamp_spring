@@ -1,5 +1,7 @@
 package com.study.lol.dto;
 
+import com.study.lol.entity.LolCharacterEntity;
+
 import java.util.List;
 
 public class LolCharacterDTO {
@@ -63,4 +65,9 @@ public class LolCharacterDTO {
         LolCharacterDTO.itemSet = itemSet;
     }
 
+    public static LolCharacterDTO parseDto (LolCharacterEntity entity) {
+        return LolCharacterDTO(
+                id = entity.getLol_character_seq()
+        )
+    }
 }

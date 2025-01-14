@@ -2,7 +2,10 @@ package com.study.lol.controller;
 
 import com.study.lol.Service.AddCharacterService;
 import com.study.lol.Service.AddSkillSetService;
+import com.study.lol.Service.LolCharacterService;
 import com.study.lol.dto.*;
+import com.study.lol.entity.LolCharacterEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,11 +17,27 @@ import java.util.Objects;
 @RestController
 public class CharacterController {
 
-    private final static List<LolCharacterDTO> totalList = new ArrayList<>();
-    private final static List<SkillsDTO> skillsList = new ArrayList<>();
+    @Autowired
+    private LolCharacterService lolCharacterService;
+//    private final static List<LolCharacterDTO> totalList = new ArrayList<>();
+//    private final static List<SkillsDTO> skillsList = new ArrayList<>();
     //전체 List 조회
     @GetMapping("")
-    public List<LolCharacterDTO> getAllInfo() {return totalList;}
+    public List<LolCharacterDTO> getAllInfo() {
+        List<LolCharacterDTO> returnList = new ArrayList<LolCharacterDTO>();
+        List<LolCharacterEntity> list = lolCharacterService.getDb();
+
+        for(int i = 0; i < list.size(); i++){
+            returnList.add(LolCharacterDTO.parseDto(list.get(i)));
+        }
+
+        return returnList;
+    }
+
+    @GetMapping("/db")
+    public List<LolCharacterEntity> getDb() {
+        return lolCharacterService.getDb();
+    }
 
     //화면에서 넘겨준 값으로 lolchampdto생성
     @PostMapping("")
@@ -32,6 +51,9 @@ public class CharacterController {
     //id값을 통해 skills update
     @PutMapping("/skill-update/{id}")
     public void addSkillSet (@PathVariable int id, @RequestBody AddSkillsRequest skillsRequest) {
+
+
+
         for (int i = 0; i < totalList.size(); i++) {
             if(totalList.get(i).getId() == id){
                 System.out.println("id = " + id +"->"+ skillsRequest.toString());
