@@ -24,7 +24,7 @@ public class CharacterController {
     //전체 List 조회
     @GetMapping("")
     public List<LolCharacterDTO> getAllInfo() {
-        List<LolCharacterDTO> returnList = new ArrayList<LolCharacterDTO>();
+        List<LolCharacterDTO> returnList = new ArrayList<>();
         List<LolCharacterEntity> list = lolCharacterService.getDb();
 
         for(int i = 0; i < list.size(); i++){
