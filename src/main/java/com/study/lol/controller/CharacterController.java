@@ -39,74 +39,81 @@ public class CharacterController {
         return lolCharacterService.getDb();
     }
 
-    //화면에서 넘겨준 값으로 lolchampdto생성
+    //화면에서 받은 값으로 db 입력
     @PostMapping("")
-    public LolCharacterDTO addCharacter(@RequestBody AddCharacterRequest characterRequest) {
-        System.out.println(characterRequest.toString());
-        AddCharacterService addCharacterService = new AddCharacterService();
-        totalList.add(addCharacterService.addCharacter(characterRequest));
-        return addCharacterService.addCharacter(characterRequest);
+    public LolCharacterEntity addCharacter(@RequestBody AddCharacterRequest addCharacterRequest){
+        LolCharacterEntity lolCharacterEntity = lolCharacterService.convertToEntity(addCharacterRequest);
+        return lolCharacterService.addCharacter(lolCharacterEntity);
     }
 
-    //id값을 통해 skills update
-    @PutMapping("/skill-update/{id}")
-    public void addSkillSet (@PathVariable int id, @RequestBody AddSkillsRequest skillsRequest) {
-
-
-
-        for (int i = 0; i < totalList.size(); i++) {
-            if(totalList.get(i).getId() == id){
-                System.out.println("id = " + id +"->"+ skillsRequest.toString());
-                AddSkillSetService addSkillSetService = new AddSkillSetService();
-                skillsList.add(addSkillSetService.AddSkills(skillsRequest));
-                totalList.get(i).setSkillSet(skillsList);
-            }
-        }
-    }
-
-    //아이템 추가
-//    @PutMapping("/item-update/{id}")
-//    public ItemDTO addItem(@PathVariable int id, @RequestBody AddItemRequest itemRequest){
-//        if(id<0 || id>totalList.size()) System.out.println("없는 id");
+//    //화면에서 넘겨준 값으로 lolchampdto생성
+//    @PostMapping("")
+//    public LolCharacterDTO addCharacter(@RequestBody AddCharacterRequest characterRequest) {
+//        System.out.println(characterRequest.toString());
+//        AddCharacterService addCharacterService = new AddCharacterService();
+//        totalList.add(addCharacterService.addCharacter(characterRequest));
+//        return addCharacterService.addCharacter(characterRequest);
+//    }
+//
+//    //id값을 통해 skills update
+//    @PutMapping("/skill-update/{id}")
+//    public void addSkillSet (@PathVariable int id, @RequestBody AddSkillsRequest skillsRequest) {
+//
+//
 //
 //        for (int i = 0; i < totalList.size(); i++) {
-//            if(totalList.get(i).getId()==id){
-//                if(totalList.get(i).getItemSet().length == 6)
-//                System.out.println("id :"+i);
-//
-//
+//            if(totalList.get(i).getId() == id){
+//                System.out.println("id = " + id +"->"+ skillsRequest.toString());
+//                AddSkillSetService addSkillSetService = new AddSkillSetService();
+//                skillsList.add(addSkillSetService.AddSkills(skillsRequest));
+//                totalList.get(i).setSkillSet(skillsList);
 //            }
-//
 //        }
-//
 //    }
-
-    // 상세 정보 조회 (단건 조회)
-    @GetMapping("/fetch/{id}")
-    public LolCharacterDTO getOneInfo(@PathVariable int id) {
-        System.out.println("id : "+id);
-        LolCharacterDTO dto = new LolCharacterDTO();
-        for(int i  = 0; i < totalList.size(); i++){
-            if(totalList.get(i).getId() == id) {
-                dto = totalList.get(i);
-                break;
-            }
-        }
-        return dto;
-    }
-
-    // delete Character
-    @DeleteMapping("/delete/{id}")
-    public void deleteCharacter(@PathVariable int id){
-        boolean checkId = false;
-        for (int i = 0; i <totalList.size() ; i++) {
-            if(totalList.get(i).getId() == id){
-                System.out.println(totalList.get(i).getName()+" 삭제!");
-                totalList.remove(i);
-                checkId = true;
-                break;
-            }
-        }
-        if(!checkId) System.out.println("존재하지 않는 id");
-    }
+//
+//    //아이템 추가
+////    @PutMapping("/item-update/{id}")
+////    public ItemDTO addItem(@PathVariable int id, @RequestBody AddItemRequest itemRequest){
+////        if(id<0 || id>totalList.size()) System.out.println("없는 id");
+////
+////        for (int i = 0; i < totalList.size(); i++) {
+////            if(totalList.get(i).getId()==id){
+////                if(totalList.get(i).getItemSet().length == 6)
+////                System.out.println("id :"+i);
+////
+////
+////            }
+////
+////        }
+////
+////    }
+//
+//    // 상세 정보 조회 (단건 조회)
+//    @GetMapping("/fetch/{id}")
+//    public LolCharacterDTO getOneInfo(@PathVariable int id) {
+//        System.out.println("id : "+id);
+//        LolCharacterDTO dto = new LolCharacterDTO();
+//        for(int i  = 0; i < totalList.size(); i++){
+//            if(totalList.get(i).getId() == id) {
+//                dto = totalList.get(i);
+//                break;
+//            }
+//        }
+//        return dto;
+//    }
+//
+//    // delete Character
+//    @DeleteMapping("/delete/{id}")
+//    public void deleteCharacter(@PathVariable int id){
+//        boolean checkId = false;
+//        for (int i = 0; i <totalList.size() ; i++) {
+//            if(totalList.get(i).getId() == id){
+//                System.out.println(totalList.get(i).getName()+" 삭제!");
+//                totalList.remove(i);
+//                checkId = true;
+//                break;
+//            }
+//        }
+//        if(!checkId) System.out.println("존재하지 않는 id");
+//    }
 }

@@ -10,6 +10,7 @@ public class AddCharacterRequest {
     private double health;
     private double attack;
     private double mana;
+    private double defence;
     private List<SkillsDTO> skillSetList;
     private List<ItemDTO> itemSet;
 
@@ -49,6 +50,10 @@ public class AddCharacterRequest {
 
     public List<ItemDTO> getItemSet() {
         return itemSet;
+    }
+
+    public double getDefence() {
+        return defence;
     }
 
     @Override

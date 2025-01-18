@@ -5,7 +5,7 @@ import com.study.lol.entity.LolCharacterEntity;
 import java.util.List;
 
 public class LolCharacterDTO {
-    private int id;
+    private long id;
     private String name;
     private double health;
     private double attack;
@@ -13,7 +13,12 @@ public class LolCharacterDTO {
     private List<SkillsDTO> skillSet;
     private static List<ItemDTO> itemSet;
 
-    public int getId() {
+    public LolCharacterDTO(){}
+    LolCharacterDTO(long id){
+        this.id = id;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -66,8 +71,6 @@ public class LolCharacterDTO {
     }
 
     public static LolCharacterDTO parseDto (LolCharacterEntity entity) {
-        return LolCharacterDTO(
-                id = entity.getLol_character_seq()
-        )
+        return new LolCharacterDTO(entity.getLol_character_seq());
     }
 }
